@@ -1,0 +1,72 @@
+.container {
+  background: white;
+  box-shadow: 0 0 10px white;
+  border: 1px solid black;
+  border-radius: 1rem;
+  width: 25rem;
+  height: 40rem;
+  margin: 5rem auto;
+  padding: 1rem;
+}
+
+.container .city-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.city-input p {
+  font-size: 0.9rem;
+}
+
+.city-input input {
+  border: 2px solid lightblue;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 1.1rem;
+  width: 10rem;
+  outline: none;
+}
+
+.container .weather-display {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.weather-display .display-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.display-top h1 {
+  font-size: 5rem;
+  font-weight: 400;
+}
+
+.weather-display .display-bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.display-bottom .weather-image {
+  width: 20rem;
+  height: 20rem;
+  background-repeat: no-repeat;
+}
+
+.weather-image.clouds {
+  background: url("../../assets/clouds.jpeg");
+  background-size: contain;
+}
+.weather-image.rainy {
+  background: url("../../assets/rainy.png");
+  background-size: contain;
+}
+.weather-image.sunny {
+  background: url("../../assets/sunny.png");
+  background-size: contain;
+}
