@@ -1,14 +1,23 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import "./Container.css";
 
 function Container() {
   let [city, setCity] = useState("London");
+  let [data, setData] = useState(null);
 
   const cityInput = useRef(null);
 
+  const API_KEY = "hide";
+  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+
   const onInputEnter = (e) => {
     if (e.key === "Enter") {
-      setCity(cityInput.current.value.trim());
+      axios.get(URL).then((res) => {
+        setData((prev) => res.data);
+        console.log(city);
+        console.log(data);
+      });
     }
   };
 
@@ -19,6 +28,7 @@ function Container() {
         <input
           type="text"
           placeholder="London"
+          onChange={(e) => setCity(e.target.value)}
           onKeyUp={onInputEnter}
           ref={cityInput}
         />
