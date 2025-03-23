@@ -6,6 +6,7 @@ function Container() {
       <div className="city-input">
         <p>Enter a city name here.</p>
         <input type="text" placeholder="London" />
+        <p className="city-display">London</p>
       </div>
       <div className="weather-display">
         <div className="display-top">

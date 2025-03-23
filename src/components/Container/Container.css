@@ -16,10 +16,6 @@
   gap: 0.5rem;
 }
 
-.city-input p {
-  font-size: 0.9rem;
-}
-
 .city-input input {
   border: 2px solid lightblue;
   padding: 0.2rem 0.5rem;
@@ -27,6 +23,16 @@
   font-size: 1.1rem;
   width: 10rem;
   outline: none;
+}
+
+.city-input p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.city-input .city-display {
+  font-size: 1.5rem;
+  -webkit-text-stroke: 1px lightblue;
 }
 
 .container .weather-display {
