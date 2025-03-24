@@ -1,25 +1,30 @@
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import "./Container.css";
 
 function Container() {
   let [city, setCity] = useState("London");
-  let [data, setData] = useState(null);
+  let [data, setData] = useState(false);
 
-  const cityInput = useRef(null);
+  const search = async (city) => {
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${
+        import.meta.env.VITE_APP_ID
+      }`;
 
-  const API_KEY = "hide";
-  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
-
-  const onInputEnter = (e) => {
-    if (e.key === "Enter") {
-      axios.get(URL).then((res) => {
-        setData((prev) => res.data);
-        console.log(city);
-        console.log(data);
+      const res = await fetch(url);
+      const weatherData = await res.json();
+      console.log(weatherData);
+      setData({
+        temp: weatherData.main.temp,
+        clouds: weatherData.clouds.all,
+        windSpeed: weatherData.wind.speed,
       });
-    }
+    } catch (err) {}
   };
+
+  useEffect(() => {
+    search("London");
+  }, []);
 
   return (
     <div className="container">
@@ -29,16 +34,13 @@ function Container() {
           type="text"
           placeholder="London"
           onChange={(e) => setCity(e.target.value)}
-          onKeyUp={onInputEnter}
-          ref={cityInput}
         />
         <p className="city-display">{city}</p>
       </div>
       <div className="weather-display">
         <div className="display-top">
-          <h1>44&deg;</h1>
-          <p>Cloudy</p>
-          <p>03/21</p>
+          <h1>{Math.floor(data.temp)}&deg;</h1>
+          <p>Wind: {data.windSpeed}mph</p>
         </div>
         <div className="display-bottom">
           <div className="weather-image sunny"></div>
