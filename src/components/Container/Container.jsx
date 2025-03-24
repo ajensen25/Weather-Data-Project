@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Container.css";
 
 function Container() {
+  const inputRef = useRef(null);
+  const cityRef = useRef(null);
   let [city, setCity] = useState("London");
   let [data, setData] = useState(false);
 
@@ -19,12 +21,21 @@ function Container() {
         clouds: weatherData.clouds.all,
         windSpeed: weatherData.wind.speed,
       });
-    } catch (err) {}
+    } catch (err) {
+      cityRef.current.innerHTML = "City not found";
+    }
   };
 
   useEffect(() => {
     search("London");
   }, []);
+
+  const onInputPressed = (e) => {
+    if (e.key === "Enter") {
+      setCity(inputRef.current.value);
+      search(inputRef.current.value.trim());
+    }
+  };
 
   return (
     <div className="container">
@@ -33,9 +44,12 @@ function Container() {
         <input
           type="text"
           placeholder="London"
-          onChange={(e) => setCity(e.target.value)}
+          onKeyDown={onInputPressed}
+          ref={inputRef}
         />
-        <p className="city-display">{city}</p>
+        <p className="city-display" ref={cityRef}>
+          {city}
+        </p>
       </div>
       <div className="weather-display">
         <div className="display-top">
