@@ -4,6 +4,7 @@ import "./Container.css";
 function Container() {
   const inputRef = useRef(null);
   const cityRef = useRef(null);
+  const weatherImage = useRef(null);
   let [city, setCity] = useState("London");
   let [data, setData] = useState(false);
 
@@ -20,6 +21,7 @@ function Container() {
         temp: weatherData.main.temp,
         clouds: weatherData.clouds.all,
         windSpeed: weatherData.wind.speed,
+        rain: weatherData.rain || "",
       });
     } catch (err) {
       cityRef.current.innerHTML = "City not found";
@@ -29,6 +31,16 @@ function Container() {
   useEffect(() => {
     search("London");
   }, []);
+
+  useEffect(() => {
+    if (data.rain) {
+      weatherImage.current.className = `weather-image rainy`;
+    } else if (data.clouds > 60) {
+      weatherImage.current.className = `weather-image clouds`;
+    } else {
+      weatherImage.current.className = `weather-image sunny`;
+    }
+  }, [data]);
 
   const onInputPressed = (e) => {
     if (e.key === "Enter") {
@@ -57,7 +69,7 @@ function Container() {
           <p>Wind: {data.windSpeed}mph</p>
         </div>
         <div className="display-bottom">
-          <div className="weather-image sunny"></div>
+          <div className="weather-image sunny" ref={weatherImage}></div>
         </div>
       </div>
     </div>
